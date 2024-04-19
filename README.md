@@ -1,4 +1,4 @@
-# Dissiminate
+# Disseminate
 *Can it run VLC without exploding? Great, make it a billboard.*
 
 This is just a concept for now, but the proposed architecture is as follows:
