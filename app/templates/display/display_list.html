@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display List</title>
+</head>
+<body>
+    <h1>Display List</h1>
+    <ul>
+        {% for display in displays %}
+            <li>{{ display.name }} - {{ display.ip_address }}</li>
+        {% empty %}
+            <li>No displays found</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'display-add' %}">Add Display</a>
+</body>
+</html>
