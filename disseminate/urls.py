@@ -15,12 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app.views import DisplayListView, DisplayCreateView, DisplayUpdateView, DisplayDeleteView
+from django.shortcuts import redirect
+from app.views import DisplayListView, DisplayCreateView, DisplayUpdateView, DisplayDeleteView, FileCreateView, assign_file_to_display, FileListView, manage_file_assignments, FileDeleteView
 
 urlpatterns = [
+    path('', lambda request: redirect('file-list', permanent=False)),  # Redirect root URL to /files/
     path('admin/', admin.site.urls),
     path('displays/', DisplayListView.as_view(), name='display-list'),
     path('displays/add/', DisplayCreateView.as_view(), name='display-add'),
     path('displays/<int:pk>/edit/', DisplayUpdateView.as_view(), name='display-edit'),
     path('displays/<int:pk>/delete/', DisplayDeleteView.as_view(), name='display-delete'),
+    path('files/', FileListView.as_view(), name='file-list'),
+    path('files/upload/', FileCreateView.as_view(), name='file-upload'),
+    path('files/<int:file_id>/assign/', manage_file_assignments, name='manage-file-assignments'),
+    path('files/<int:pk>/delete/', FileDeleteView.as_view(), name='file-delete')
 ]

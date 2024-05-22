@@ -7,9 +7,14 @@
 </head>
 <body>
     <h1>Display List</h1>
+    <a href="{% url 'file-list' %}">Go to Files</a> <!-- Link to the files page -->
     <ul>
         {% for display in displays %}
-            <li>{{ display.name }} - {{ display.ip_address }}</li>
+            <li>
+                {{ display.name }} - {{ display.ip_address }}
+                <a href="{% url 'display-edit' display.pk %}">Edit</a>
+                <a href="{% url 'display-delete' display.pk %}">Delete</a>
+            </li>
         {% empty %}
             <li>No displays found</li>
         {% endfor %}
