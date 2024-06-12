@@ -19,7 +19,7 @@ class DisplayForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ip_address': forms.TextInput(attrs={'class': 'form-control'}),
             'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'ssh_public_key_or_password': forms.Textarea(attrs={'class': 'form-control'}),
+            'ssh_public_key_or_password': forms.PasswordInput(attrs={'class': 'form-control'}),
             'remote_directory': forms.TextInput(attrs={'class': 'form-control'}),
         }
 

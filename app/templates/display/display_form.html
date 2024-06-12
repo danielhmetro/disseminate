@@ -12,32 +12,32 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div class="fieldWrapper">
-            {{ form.name.errors }}
             <label for="{{ form.name.id_for_label }}" class="form-label">Name:</label>
+            {{ form.name.errors }}
             {{ form.name }}
         </div>
 
         <div class="fieldWrapper">
-            {{ form.ip_labeladdress.errors }}
             <label for="{{ form.ip_address.id_for_label }}" class="form-label">IP:</label>
+            {{ form.ip_address.errors }}
             {{ form.ip_address }}
         </div>
 
         <div class="fieldWrapper">
-            {{ form.username.errors }}
             <label for="{{ form.username.id_for_label }}" class="form-label">Username:</label>
+            {{ form.username.errors }}
             {{ form.username }}
         </div>
 
         <div class="fieldWrapper">
-            {{ form.ssh_public_key_or_password.errors }}
             <label for="{{ form.ssh_public_key_or_password.id_for_label }}" class="form-label">Public Key/Password:</label>
+            {{ form.ssh_public_key_or_password.errors }}
             {{ form.ssh_public_key_or_password }}
         </div>
 
         <div class="fieldWrapper">
-            {{ form.remote_directory.errors }}
             <label for="{{ form.remote_directory.id_for_label }}" class="form-label">Remote Directory:</label>
+            {{ form.remote_directory.errors }}
             {{ form.remote_directory }}
         </div>
 
