@@ -3,15 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>{% if display %}Edit Display{% else %}Add Display{% endif %}</title>
 </head>
 <body>
     <h1>{% if display %}Edit Display{% else %}Add Display{% endif %}</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-        <a href="{% url 'display-list' %}"><button type="button">Cancel</button></a>
+        {{ form.non_field_errors }}
+        <div class="fieldWrapper">
+            {{ form.name.errors }}
+            <label for="{{ form.name.id_for_label }}" class="form-label">Name:</label>
+            {{ form.name }}
+        </div>
+
+        <div class="fieldWrapper">
+            {{ form.ip_labeladdress.errors }}
+            <label for="{{ form.ip_address.id_for_label }}" class="form-label">IP:</label>
+            {{ form.ip_address }}
+        </div>
+
+        <div class="fieldWrapper">
+            {{ form.username.errors }}
+            <label for="{{ form.username.id_for_label }}" class="form-label">Username:</label>
+            {{ form.username }}
+        </div>
+
+        <div class="fieldWrapper">
+            {{ form.ssh_public_key_or_password.errors }}
+            <label for="{{ form.ssh_public_key_or_password.id_for_label }}" class="form-label">Public Key/Password:</label>
+            {{ form.ssh_public_key_or_password }}
+        </div>
+
+        <div class="fieldWrapper">
+            {{ form.remote_directory.errors }}
+            <label for="{{ form.remote_directory.id_for_label }}" class="form-label">Remote Directory:</label>
+            {{ form.remote_directory }}
+        </div>
+
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group me-2" role="group">
+                <button type="submit" class="btn btn-primary" role="button">Save</button>
+            </div>
+            <div class="btn-group me-2" role="group">
+                <a href="{% url 'display-list' %}"><button type="button" class="btn btn-secondary" role="button">Cancel</button></a>
+            </div>
+        </div>
     </form>
 </body>
 </html>

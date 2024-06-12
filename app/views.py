@@ -2,6 +2,26 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import File, Display
+from django.forms import Textarea
+from django import forms
+
+class DisplayForm(forms.ModelForm):
+    class Meta:
+        model = Display
+        fields = (
+            'name',
+            'ip_address',
+            'username',
+            'ssh_public_key_or_password',
+            'remote_directory',
+        )
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'ip_address': forms.TextInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'ssh_public_key_or_password': forms.Textarea(attrs={'class': 'form-control'}),
+            'remote_directory': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 class DisplayListView(ListView):
     model = Display
@@ -11,14 +31,14 @@ class DisplayListView(ListView):
 class DisplayCreateView(CreateView):
     model = Display
     template_name = 'display/display_form.html'
-    fields = ['name', 'ip_address', 'username', 'ssh_public_key_or_password', 'remote_directory']
     success_url = reverse_lazy('display-list')
+    form_class = DisplayForm
 
 class DisplayUpdateView(UpdateView):
     model = Display
     template_name = 'display/display_form.html'
-    fields = ['name', 'ip_address', 'username', 'ssh_public_key_or_password', 'remote_directory']
     success_url = reverse_lazy('display-list')
+    form_class = DisplayForm
 
 class DisplayDeleteView(DeleteView):
     model = Display
