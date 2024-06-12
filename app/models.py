@@ -47,7 +47,7 @@ class File(models.Model):
         max_width, max_height = 1280, 720
         scaling_factor = min(max_width / img.width, max_height / img.height)
         new_size = (int(img.width * scaling_factor), int(img.height * scaling_factor))
-        img = img.resize(new_size, Image.LANCZOS)
+        img = img.resize(new_size, Image.Resampling.LANCZOS)
         img.save(self.file.path)
 
     def sync_media(self, display):
