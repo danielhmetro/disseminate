@@ -24,8 +24,14 @@
 </head>
 <body>
     <h1>File List</h1>
-    <a href="{% url 'display-list' %}">Go to Displays</a><br/>
-    <a href="{% url 'file-upload' %}">Upload File</a>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group me-2" role="group">
+            <a href="{% url 'display-list' %}" class="btn btn-secondary">Go to Displays</a>
+        </div>
+        <div class="btn-group me-2" role="group">
+            <a href="{% url 'file-upload' %}" class="btn btn-primary">Upload File</a>
+        </div>
+    </div>
     <table class="table">
         <thead>
           <tr>
