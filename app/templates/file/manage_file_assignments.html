@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage File Assignments</title>
+</head>
+<body>
+    <h1>Manage Assignments for "{{ file }}"</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="displays">Select Display(s):</label><br>
+        <select name="displays" multiple>
+            {% for display in displays %}
+                <option value="{{ display.id }}" {% if display in assigned_displays %}selected{% endif %}>{{ display.name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <button type="submit">Assign</button>
+    </form>
+</body>
+</html>

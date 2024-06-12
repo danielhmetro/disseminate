@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File List</title>
+    <style>
+        .file-item {
+            display: flex;
+            align-items: center;
+        }
+        .file-details {
+            flex: 1;
+        }
+        .file-image {
+            margin-left: 20px;
+        }
+        .file-image img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>File List</h1>
+    <a href="{% url 'display-list' %}">Go to Displays</a>
+    <a href="{% url 'file-upload' %}">Upload File</a>
+    <ul>
+        {% for file in files %}
+            <li class="file-item">
+                <div class="file-details">
+                    <strong>{{ file.name }}</strong>
+                    <ul>
+                        {% for display in file.assigned_displays.all %}
+                            <li>{{ display.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'manage-file-assignments' file.id %}">Assign to Displays</a>
+                    <a href="{% url 'file-delete' pk=file.id %}">Delete</a>
+                </div>
+                <div class="file-image">
+                    {% if file.file.url %}
+                        <img src="{{ file.file.url }}" alt="{{ file.name }}">
+                    {% endif %}
+                </div>
+            </li>
+            <hr>
+        {% empty %}
+            <li>No files found</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
