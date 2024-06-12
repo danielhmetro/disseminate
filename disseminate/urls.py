@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.shortcuts import redirect
-from app.views import DisplayListView, DisplayCreateView, DisplayUpdateView, DisplayDeleteView, FileCreateView, assign_file_to_display, FileListView, manage_file_assignments, FileDeleteView
+from app.views import DisplayListView, DisplayCreateView, DisplayUpdateView, DisplayDeleteView, FileCreateView, FileListView, manage_file_assignments, FileDeleteView
 
 urlpatterns = [
     path('', lambda request: redirect('file-list', permanent=False)),  # Redirect root URL to /files/

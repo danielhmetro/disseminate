@@ -71,17 +71,6 @@ class FileCreateView(CreateView):
         self.object = form.save()
         return redirect('file-list')
 
-def assign_file_to_display(request, file_id):
-    file = File.objects.get(pk=file_id)
-    if request.method == 'POST':
-        display_ids = request.POST.getlist('displays')
-        displays = Display.objects.filter(pk__in=display_ids)
-        file.displays.set(displays)
-        return redirect('file-list')
-    else:
-        displays = Display.objects.all()
-        return render(request, 'file/assign_file_to_display.html', {'file': file, 'displays': displays})
-
 class FileDeleteView(DeleteView):
     model = File
     template_name = 'file/file_confirm_delete.html'  # You can create this template for confirmation
