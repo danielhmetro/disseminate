@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&@yk=4(k)uo!q9(cpc+*!e1z)ej)u2#58&-7yf74+fjk1$nz^4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.70.185.250','display.mesh','gsg-displays.mesh']
+ALLOWED_HOSTS = ['10.70.185.250','display.mesh','gsg-displays.mesh',"127.0.0.1"]
 
 # Application definition
 

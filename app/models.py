@@ -4,13 +4,18 @@ from PIL import Image
 import subprocess
 import os
 import sys
+from django.core.validators import RegexValidator
+
+ip_validator = RegexValidator(r"^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$", "IP address must of format 'x.x.x.x'.")
+remote_directory_validator = RegexValidator(r"^[0-9a-zA-Z/\-_]+$", "Directory may only contain '0-9a-zA-Z/-_'.")
+username_password_validator = RegexValidator(r"^[0-9a-zA-Z/\-_]+$", "Value may only contain '0-9a-zA-Z/.-_'.")
 
 class Display(models.Model):
     name = models.CharField(max_length=100)
-    ip_address = models.CharField(max_length=100)
-    username = models.CharField(max_length=100)
-    ssh_public_key_or_password = models.TextField()
-    remote_directory = models.CharField(max_length=255)
+    ip_address = models.CharField(max_length=100, validators=[ip_validator])
+    username = models.CharField(max_length=100, validators=[username_password_validator])
+    ssh_public_key_or_password = models.TextField(validators=[username_password_validator])
+    remote_directory = models.CharField(max_length=255, validators=[remote_directory_validator])
     assigned_files = models.ManyToManyField('File', related_name='assigned_displays', blank=True)
 
     def __str__(self):
@@ -51,7 +56,8 @@ class File(models.Model):
         img.save(self.file.path)
 
     def sync_media(self, display):
-        command = f"sshpass -p meshmesh9 rsync -e 'ssh -o StrictHostKeyChecking=no' -avu --delete {settings.MEDIA_ROOT} {display.username}@{display.ip_address}:{display.remote_directory}/"
+        display_cred = os.environ["DISPLAY_CRED"]
+        command = f"sshpass -p {display_cred} rsync -e 'ssh -o StrictHostKeyChecking=no' -avu --delete {settings.MEDIA_ROOT} {display.username}@{display.ip_address}:{display.remote_directory}/"
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
         # Check if the command was successful
         if result.returncode == 0:
@@ -62,7 +68,8 @@ class File(models.Model):
             print(result.stderr, file=sys.stderr)
 
     def restart_viewer(self, display):
-        command = f"sshpass -p meshmesh9 ssh -o StrictHostKeyChecking=no {display.username}@{display.ip_address} 'sudo killall fbi; sudo fbi --noverbose -T 1 -a -t 5 {display.remote_directory}/media/*'"
+        display_cred = os.environ["DISPLAY_CRED"]
+        command = f"sshpass -p {display_cred} ssh -o StrictHostKeyChecking=no {display.username}@{display.ip_address} 'sudo killall fbi; sudo fbi --noverbose -T 1 -a -t 5 {display.remote_directory}/media/*'"
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
         # Check if the command was successful
         if result.returncode == 0:
