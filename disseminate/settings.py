@@ -23,9 +23,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SECRET_KEY = 'django-insecure-&@yk=4(k)uo!q9(cpc+*!e1z)ej)u2#58&-7yf74+fjk1$nz^4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['10.70.185.250','display.mesh','gsg-displays.mesh',"127.0.0.1"]
+ALLOWED_HOSTS = ['gsg-displays.nycmesh.net']
 
 # Application definition
 
@@ -113,6 +114,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+BASIC_AUTH_REALM = "Restricted Area"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

@@ -33,7 +33,9 @@ urlpatterns = [
     path('files/<int:pk>/delete/', FileDeleteView.as_view(), name='file-delete')
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-else:
-    quit()
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#if settings.DEBUG:
+#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#else:
+#    quit()
